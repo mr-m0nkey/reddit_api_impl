@@ -4,12 +4,8 @@ version = "0.1.0"
 authors = ["Mayowa Aj <sagaraaj69@gmail.com>"]
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-warp = "0.2"
-parking_lot = "0.10.0"
-serde = { version = "1.0", features = ["derive"] }
-tokio = { version = "0.2", features = ["macros"] }
-diesel = { version = "1.4.4", features = ["mysql"] }
-dotenv = "0.9.0"
+rocket = "0.4.4"
+diesel = { version = "1.0.0", features = ["mysql"] }
+dotenv = "0.15.0"
