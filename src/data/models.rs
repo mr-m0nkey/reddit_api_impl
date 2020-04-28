@@ -2,21 +2,20 @@
 pub struct User {
     pub id: i64,
     pub username: String,
-    pub password: String
+    pub password: String,
 }
 
 #[derive(Queryable)]
 pub struct Post {
-   id: i64,
-   title: String,
-   body: Option<String>,
-   author_id: i64,
-   community_id: i64,
-   upvotes: i64,
-   downvotes: i64,
-   is_edited: bool
+    id: i64,
+    title: String,
+    body: Option<String>,
+    author_id: i64,
+    community_id: i64,
+    upvotes: i64,
+    downvotes: i64,
+    is_edited: bool,
 }
-
 
 #[derive(Queryable)]
 pub struct Comment {
@@ -27,14 +26,13 @@ pub struct Comment {
     post_id: i64,
     upvotes: i64,
     downvotes: i64,
-    is_edited: bool
+    is_edited: bool,
 }
-
 
 #[derive(Queryable)]
 pub struct Community {
     id: i64,
     name: String,
     description: String,
-    creator_id: i64
+    creator_id: i64,
 }

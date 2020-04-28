@@ -1,26 +1,22 @@
-pub mod models;
 pub mod bindings;
+pub mod models;
 
-use models::*;
-use bindings::*;
-use crate::diesel::prelude::*;
 use crate::diesel::mysql::MysqlConnection;
+use crate::diesel::prelude::*;
+use bindings::*;
 use dotenv::dotenv;
+use models::*;
 use std::env;
-
-
 
 pub fn establish_connection() -> MysqlConnection {
     dotenv().ok();
 
-    let database_url = env::var("DATABASE_URL")
-        .expect("DATABASE_URL must be set");
-        MysqlConnection::establish(&database_url)
+    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    MysqlConnection::establish(&database_url)
         .expect(&format!("Error connecting to {}", database_url))
 }
 
-
-pub fn create_user(conn: &MysqlConnection) -> User{
+pub fn create_user(conn: &MysqlConnection) -> User {
     use crate::schema::users;
 
     let new_user = NewUser {
@@ -32,6 +28,5 @@ pub fn create_user(conn: &MysqlConnection) -> User{
         .values(&new_user)
         .execute(conn);
 
-    users::table.order(users::id.desc()).first(conn).unwrap() 
+    users::table.order(users::id.desc()).first(conn).unwrap()
 }
-
