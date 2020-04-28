@@ -1,5 +1,8 @@
-#[derive(Debug)]
+use crate::schema::users;
+
+#[derive(Insertable)]
+#[table_name="users"]
 pub struct NewUser {
-    username: String,
-    password: String
+    pub username: String,
+    pub password: String,
 }

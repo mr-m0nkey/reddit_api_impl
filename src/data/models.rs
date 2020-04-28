@@ -38,5 +38,3 @@ pub struct Community {
     description: String,
     creator_id: i64
 }
-
-
