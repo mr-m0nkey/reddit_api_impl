@@ -47,4 +47,9 @@ joinable!(communities -> users (creator_id));
 joinable!(posts -> communities (communiy_id));
 joinable!(posts -> users (author_id));
 
-allow_tables_to_appear_in_same_query!(comments, communities, posts, users,);
+allow_tables_to_appear_in_same_query!(
+    comments,
+    communities,
+    posts,
+    users,
+);
