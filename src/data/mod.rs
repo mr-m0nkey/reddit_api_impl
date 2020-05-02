@@ -3,9 +3,7 @@ pub mod models;
 
 use crate::diesel::mysql::MysqlConnection;
 use crate::diesel::prelude::*;
-use bindings::*;
 use dotenv::dotenv;
-use models::*;
 use std::env;
 
 pub fn establish_connection() -> MysqlConnection {
@@ -16,17 +14,3 @@ pub fn establish_connection() -> MysqlConnection {
         .expect(&format!("Error connecting to {}", database_url))
 }
 
-pub fn create_user(conn: &MysqlConnection) -> User {
-    use crate::schema::users;
-
-    let new_user = NewUser {
-        username: "efee".to_string(),
-        password: "body".to_string(),
-    };
-
-    diesel::insert_into(users::table)
-        .values(&new_user)
-        .execute(conn);
-
-    users::table.order(users::id.desc()).first(conn).unwrap()
-}
