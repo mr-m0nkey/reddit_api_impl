@@ -13,6 +13,7 @@ pub fn create_user(new_user: NewUser, conn: &MysqlConnection) -> User {
     users::table.order(users::id.desc()).first(conn).unwrap()
 }
 
+
 // edit 
 // delete
 // retrieve

@@ -9,10 +9,19 @@ use reddit_api_impl::data;
 fn main() {
     let conn = data::establish_connection();
 
-    rocket::ignite().mount("/", routes![index]).launch();
+    rocket::ignite()
+        .mount("/", routes![welcome])
+        .mount(
+            "/users",
+            routes![
+                reddit_api_impl::routes::user::all_users,
+                reddit_api_impl::routes::user::get_user
+            ],
+        )
+        .launch();
 }
 
 #[get("/")]
-fn index() -> &'static str {
-    "Hello, world!"
+fn welcome() -> &'static str {
+    "Welcome"
 }

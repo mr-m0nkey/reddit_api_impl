@@ -1,4 +1,6 @@
-#[derive(Queryable)]
+use crate::schema::users;
+
+#[derive(Queryable, AsChangeset)]
 pub struct User {
     pub id: i64,
     pub username: String,
