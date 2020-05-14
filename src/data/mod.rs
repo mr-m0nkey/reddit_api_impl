@@ -1,5 +1,6 @@
 pub mod bindings;
 pub mod models;
+pub mod repositories;
 
 use crate::diesel::mysql::MysqlConnection;
 use crate::diesel::prelude::*;
