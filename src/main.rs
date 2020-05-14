@@ -14,8 +14,11 @@ fn main() {
         .mount(
             "/users",
             routes![
-                reddit_api_impl::routes::user::all_users,
-                reddit_api_impl::routes::user::get_user
+                reddit_api_impl::routes::user::get_all_users,
+                reddit_api_impl::routes::user::get_user,
+                reddit_api_impl::routes::user::delete_user,
+                reddit_api_impl::routes::user::add_user,
+                reddit_api_impl::routes::user::update_user
             ],
         )
         .launch();
