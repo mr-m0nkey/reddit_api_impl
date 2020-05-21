@@ -2,15 +2,50 @@ pub mod bindings;
 pub mod models;
 pub mod repositories;
 
+
 use crate::diesel::mysql::MysqlConnection;
-use crate::diesel::prelude::*;
-use dotenv::dotenv;
+use r2d2;
+use r2d2_diesel::ConnectionManager;
+use rocket::{Outcome, Request, State};
+use rocket::http::Status;
+use rocket::request::{self, FromRequest};
 use std::env;
+use std::ops::Deref;
+use dotenv::dotenv;
 
-pub fn establish_connection() -> MysqlConnection {
+
+
+type Pool = r2d2::Pool<ConnectionManager<MysqlConnection>>;
+
+
+pub fn init_pool() -> Pool {
+    let manager = ConnectionManager::<MysqlConnection>::new(database_url());
+    Pool::new(manager).expect("db pool")
+}
+
+fn database_url() -> String {
     dotenv().ok();
+    env::var("DATABASE_URL").expect("DATABASE_URL must be set")
 
-    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-    MysqlConnection::establish(&database_url)
-        .expect(&format!("Error connecting to {}", database_url))
+}
+
+
+pub struct DbConn(pub r2d2::PooledConnection<ConnectionManager<MysqlConnection>>);
+impl<'a, 'r> FromRequest<'a, 'r> for DbConn {
+    type Error = ();
+    fn from_request(request: &'a Request<'r>) -> request::Outcome<DbConn, Self::Error> {
+        let pool = request.guard::<State<Pool>>()?;
+        match pool.get() {
+            Ok(conn) => Outcome::Success(DbConn(conn)),
+            Err(_) => Outcome::Failure((Status::ServiceUnavailable, ())),
+        }
+    }
+}
+
+
+impl Deref for DbConn {
+    type Target = MysqlConnection;
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
 }

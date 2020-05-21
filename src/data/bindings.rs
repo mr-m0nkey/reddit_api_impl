@@ -1,5 +1,4 @@
 use super::models::*;
-use crate::rocket::request::Form;
 use crate::schema::users;
 
 #[derive(Insertable)]
@@ -18,7 +17,7 @@ impl NewUser {
     }
 }
 
-#[derive(FromForm)]
+#[derive(Serialize, Deserialize)]
 pub struct UserForm {
     pub username: String,
     pub password: Option<String>,

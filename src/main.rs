@@ -1,16 +1,20 @@
-#![feature(proc_macro_hygiene, decl_macro)]
+#![feature(proc_macro_hygiene, plugin, decl_macro)]
+extern crate diesel;
+extern crate dotenv;
 #[macro_use]
 extern crate rocket;
+extern crate rocket_contrib;
+extern crate serde_derive;
 extern crate reddit_api_impl;
 
-use diesel::mysql::MysqlConnection;
+
 use reddit_api_impl::data;
 
 fn main() {
-    let conn = data::establish_connection();
 
     rocket::ignite()
         .mount("/", routes![welcome])
+        .manage(data::init_pool())
         .mount(
             "/users",
             routes![

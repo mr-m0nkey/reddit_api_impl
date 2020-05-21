@@ -1,11 +1,12 @@
 use crate::schema::users;
 
-#[derive(Queryable, AsChangeset)]
+#[derive(Queryable, AsChangeset, Serialize, Deserialize)]
 pub struct User {
     pub id: i64,
     pub username: String,
     pub password: String,
 }
+
 
 #[derive(Queryable)]
 pub struct Post {
