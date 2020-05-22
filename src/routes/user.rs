@@ -39,3 +39,5 @@ pub fn add_user(user_form: Json<UserForm>, connection: data::DbConn) {
 #[put("/<id>", format = "application/json", data = "<user_form>")]
 pub fn update_user(id: i64, user_form: Json<UserForm>) {}
 
+
+

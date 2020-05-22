@@ -8,9 +8,10 @@ use crate::schema::users;
 pub fn create_user(new_user: NewUser, connection: &MysqlConnection) -> QueryResult<User> {
     //TODO encrypt password
 
-    diesel::insert_into(users::table)
+    let result = diesel::insert_into(users::table)
         .values(&new_user)
         .execute(connection);
+        
 
     users::table.order(users::id.desc()).first(connection)
 }

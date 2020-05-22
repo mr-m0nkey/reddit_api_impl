@@ -31,6 +31,7 @@ fn database_url() -> String {
 
 
 pub struct DbConn(pub r2d2::PooledConnection<ConnectionManager<MysqlConnection>>);
+
 impl<'a, 'r> FromRequest<'a, 'r> for DbConn {
     type Error = ();
     fn from_request(request: &'a Request<'r>) -> request::Outcome<DbConn, Self::Error> {

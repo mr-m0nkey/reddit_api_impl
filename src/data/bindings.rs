@@ -41,3 +41,9 @@ impl UserForm {
         }
     }
 }
+
+pub struct ResponseDto<T> {
+    pub response_code: String,
+    pub response_message: String,
+    pub data: Option<T>
+}
