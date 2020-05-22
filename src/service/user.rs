@@ -16,6 +16,17 @@ pub fn add_user(user_form: UserForm, connection: data::DbConn) -> ResponseDto<Us
     user_repo::create_user(new_user, &connection);
 
 
+    unimplemented!()
+
+
+        
+}
+
+pub fn get_users(connection: data::DbConn) -> ResponseDto<Vec<User>> {
+
+   unimplemented!()
+
+
 
         
 }

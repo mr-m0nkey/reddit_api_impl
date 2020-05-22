@@ -11,17 +11,20 @@ use crate::data;
 
 #[get("/")]
 pub fn get_all_users() -> &'static str {
-    "All users"
+    unimplemented!()
+
 }
 
 #[get("/<id>")]
 pub fn get_user(id: i64) -> &'static str {
-    "get a user"
+    unimplemented!()
+
 }
 
 #[delete("/<id>")]
 pub fn delete_user(id: i64) -> &'static str {
-    "delete a user"
+    unimplemented!()
+
 }
 
 #[post("/", format = "application/json", data = "<user_form>")]
@@ -33,11 +36,17 @@ pub fn add_user(user_form: Json<UserForm>, connection: data::DbConn) {
     
     user::create_user(new_user, &connection);
 
+    unimplemented!()
+
+
         
 }
 
 #[put("/<id>", format = "application/json", data = "<user_form>")]
-pub fn update_user(id: i64, user_form: Json<UserForm>) {}
+pub fn update_user(id: i64, user_form: Json<UserForm>) {
+    unimplemented!()
+
+}
 
 
 
