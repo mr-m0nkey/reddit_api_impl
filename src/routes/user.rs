@@ -1,8 +1,8 @@
 use crate::data::bindings::UserForm;
-use crate::data::repositories::user;
+
+use crate::service::user as user_service;
 use rocket_contrib::json::Json;
-
-
+use std::error::Error;
 use crate::data;
 
 
@@ -30,13 +30,10 @@ pub fn delete_user(id: i64) -> &'static str {
 #[post("/", format = "application/json", data = "<user_form>")]
 pub fn add_user(user_form: Json<UserForm>, connection: data::DbConn) {
 
-    let new_user = user_form
-        .into_inner()
-        .to_new_user();
-    
-    user::create_user(new_user, &connection);
+    let result: Result<(), Box<dyn Error>> = user_service::add_user(user_form.into_inner(), connection);
 
     unimplemented!()
+
 
 
         
